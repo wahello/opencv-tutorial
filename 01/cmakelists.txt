@@ -1,0 +1,22 @@
+project(01)
+
+# Create the executable
+add_executable(${PROJECT_NAME} src/main.cpp)
+
+
+include(CMakePrintHelpers)
+cmake_print_variables(PROJECT_SOURCE_DIR)
+cmake_print_variables(CONAN_LIBS)
+# cmake_print_variables(OpenCV_INCLUDE_DIRS)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${OpenCV_INCLUDE_DIRS})
+
+
+# link against the fmt target supplied by conan
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        # CONAN_PKG::opencv
+        # CONAN_PKG::spdlog
+        ${CONAN_LIBS}
+
+)

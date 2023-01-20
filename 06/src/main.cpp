@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <opencv2/opencv.hpp>
+#include <filesystem>
 
 
 extern "C" {
@@ -12,6 +13,7 @@ extern "C" {
 
 using namespace std;
 using namespace cv;
+namespace fs = std::filesystem;
 
 
 // https://www.bilibili.com/video/BV1jz4y1Z7pf?p=7
@@ -67,6 +69,16 @@ int main(int argc, char const *argv[])
     addWeighted(srcimg3, 1.5, black, 0.2, 0.0, dst7);
     imshow("dst7", dst7);
 
+    vector <int> compression_params;
+    compression_params.push_back(IMWRITE_JPEG_QUALITY);
+    compression_params.push_back(80);
+
+    std::string dire("../result/07/");
+    std::error_code ec;
+    fs::create_directories(dire);
+
+    imwrite("../result/07/dst7.jpg", dst7, compression_params);
+    imwrite("../result/07/dst6.jpg", dst6, compression_params);
 
     waitKey(0);
     destroyAllWindows();

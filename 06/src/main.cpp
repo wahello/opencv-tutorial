@@ -50,6 +50,23 @@ int main(int argc, char const *argv[])
     divide(srcimg1, srcimg2, dst4);
     imshow("divide-img", dst4);
 
+    Mat srcimg3 = imread("../lena.png");
+    imshow("srcimg3", srcimg3);
+    Mat black = Mat::zeros(srcimg3.size(), srcimg3.type());
+    black = Scalar(40, 40, 40); // 亮度 brightness
+
+    Mat dst5;
+    add(srcimg3, black, dst5); //
+    imshow("dst5", dst5);
+
+    Mat dst6;
+    subtract(srcimg3, black, dst6);
+    imshow("dst6", dst6);
+
+    Mat dst7;
+    addWeighted(srcimg3, 1.5, black, 0.2, 0.0, dst7);
+    imshow("dst7", dst7);
+
 
     waitKey(0);
     destroyAllWindows();

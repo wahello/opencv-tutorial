@@ -1,0 +1,36 @@
+project(st)
+
+# Create the executable
+add_executable(${PROJECT_NAME} src/main.cpp)
+
+
+include(CMakePrintHelpers)
+cmake_print_variables(PROJECT_SOURCE_DIR)
+cmake_print_variables(CONAN_LIBS)
+# cmake_print_variables(OpenCV_INCLUDE_DIRS)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${OpenCV_INCLUDE_DIRS})
+
+message(STATUS " ==++++ CONAN_LIBS: ${CONAN_LIBS}")
+
+find_package(jsoncpp CONFIG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
+
+# target_link_libraries(main PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
+
+# link against the fmt target supplied by conan
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        # CONAN_PKG::opencv
+        # CONAN_PKG::spdlog
+        # ${CONAN_LIBS}
+        # jsoncpp
+        JsonCpp::JsonCpp
+        spdlog::spdlog
+        spdlog::spdlog_header_only
+)
+
+
+# add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#                 COMMAND cmake -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/assets ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
+#             )
